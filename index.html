@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Example App</title>
+  <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+  <script src="http://builds.emberjs.com.s3.amazonaws.com/handlebars-1.0.0.js"></script>
+  <script src="http://builds.emberjs.com.s3.amazonaws.com/ember-latest.js"></script>
+  <script src="http://builds.emberjs.com.s3.amazonaws.com/ember-data-latest.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <script type="text/x-handlebars" data-template-name="worlds">
+    <p>{{#linkTo "worlds"}}outlet for #/worlds{{/linkTo}} [worlds]</p>
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="world">
+    <p>{{#linkTo "world" content}}outlet for #/worlds/{{id}}{{/linkTo}} [world]</p>
+     {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="maps">
+    <p>{{#linkTo "maps"}}outlet for #/worlds/{{world.id}}/maps{{/linkTo}} [maps]</p>
+    {{!debugger}}
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="map">
+    <p>{{#linkTo "map"}}outlet for #/worlds/{{world.id}}/maps/{{id}}{{/linkTo}} [map]</p>
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="events">
+    <p>{{#linkTo "events"}}outlet for #/worlds/{{world.id}}/maps/{{map.id}}/events{{/linkTo}} [events]</p>
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="event">
+    <p>{{#linkTo "event"}}outlet for #/worlds/{{world.id}}/maps/{{map.id}}/events/{{id}}{{/linkTo}} [event]</p>
+    {{outlet}}
+  </script>
+
+
+
+  <script type="text/x-handlebars" data-template-name="worlds/index">
+    <h2>Worlds</h2>
+    <p>template for <b>worlds/index</b></p>
+    {{#each world in controller}}
+      <p>{{#linkTo "world.index" world}}{{world.name}}{{/linkTo}}</p>
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="maps/index">
+    <h2>Maps</h2>
+    <p>template for <b>maps/index</b></p>
+    {{#each map in controller}}
+      <p>{{#linkTo "map.index" map}}{{map.name}}{{/linkTo}}</p>
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="events/index">
+    <h2>Events</h2>
+    <p>template for <b>events/index</b></p>
+    {{#each event in controller}}
+      <p>{{#linkTo "event.index" event}}{{event.name}}{{/linkTo}}</p>
+    {{/each}}
+  </script>
+
+
+  <script type="text/x-handlebars" data-template-name="world/index">
+    <h2>{{name}}</h2>
+    <p>template for <b>world/index</b></p>
+      {{#linkTo "maps.index"}}maps{{/linkTo}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="map/index">
+    <h2>{{name}}</h2>
+    <p>template for <b>map/index</b></p>
+    {{#linkTo "events.index"}}events{{/linkTo}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="event/index">
+    <h2>{{name}}</h2>
+    <p>template for <b>event/index</b></p>
+  </script>
+
+
+</body>
+</html>
